@@ -28,8 +28,8 @@ public class TurkishAirlines {
       
         
         String username = "juan";
-        String password = "zP54o9ui";
-        String countries[] = {"Turkey", "Greece", "Lebanon", "Spain", "Portugal"};
+        String password = "1234";
+        login(username, password);
         
     }
     static void login(String usernameSystem, String passwordSystem) {
@@ -37,17 +37,22 @@ public class TurkishAirlines {
         int counter = 0;
         String username = "";
         String password = "";
+        String countries[] = {"Turkey", "Greece", "Lebanon", "Spain", "Portugal"};
+        
         do {
             System.out.println("Welcome Turkish Airlines System");
+           
             System.out.println("Enter your username:");
             username = scanner.next();
             System.out.println("Enter your password: ");
             password = scanner.next();
-            if(usernameSystem.equals(username)&& passwordSystem.equals(password)) {
-                
+            if(usernameSystem.equals(username)&& passwordSystem.equals(password)) {                
+             while(true) {
+                 menu(countries);
+             }
             }else {
                 counter ++;
-                System.out.println("Username or password is wrong. You have + " + (3-counter) + " left");
+                System.out.println("Username or password is wrong. You have " + (3-counter) + " left");
             }
             
             
@@ -74,25 +79,49 @@ public class TurkishAirlines {
     
     
     static void userData(String countries[]) {
-       /*The user must choose the origin country and the destination country, the flight date, and 
-        * the condition:
-         Economy or First Class.
-        * */ 
+        System.out.println("Welcome to registration form for Turkey airlines please complete the fields correctly");
+        System.out.println("The countries available are: ");
+        for(String country: countries) {
+            System.out.println("-"+country);
+        }
         Scanner scanner = new Scanner(System.in);
         String originCountry = "";
         String destinationCountry="";
         String classToSit = "";
         String date = "";
+        String name = "";
+        String passport = "";
+        String luggage = "";
+        String meal = "";
+        System.out.println("Enter your full name: ");
+        name = scanner.next();
+        System.out.println("Enter your passport: (The passport must contain from 1 to 9 numbers");
+        passport = scanner.next();
         System.out.println("Please enter your origin country:");
         originCountry = scanner.next();
         System.out.println("Please enter your destination country");
         destinationCountry = scanner.next();
-        System.out.println("Which date would you like to travel: ");
+        System.out.println("Which date would you like to travel: (The date must be dd-mm-yyyy format)");
         date = scanner.next();
-        if(validationCountry(countries, destinationCountry, originCountry) && validationDate(date)) {
+        System.out.println("Would you like to have an extra piece of luggage in your hold wirte yes or no ");
+        luggage= scanner.next();
+        if(validationCountry(countries, destinationCountry, originCountry) && validationDate(date) && validationPassport(passport)) {
             System.out.println("Write the class you would like to be: Economy or First Class");
             classToSit =scanner.next();
+            System.out.println("Choose your preferred meal: (Regular, Vegetarian, Kosher)");
+            meal=scanner.next();
+            System.out.println("S U M M A R Y");
+            System.out.println("This is a summary of your choices");
+            System.out.println("Name: " + name);
+            System.out.println("Passport: " + passport);
+            System.out.println("Origin Country: " + originCountry);
+            System.out.println("Destination Country: " + destinationCountry);
+            System.out.println("Date for fly: " + date);
+            System.out.println();
+            
         }
+        System.out.println("One of the information you give is wrong please try again");
+        
     }
     
     static boolean validationDate(String date) {
@@ -100,5 +129,26 @@ public class TurkishAirlines {
         Pattern pattern = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
         Matcher matcher = pattern.matcher(date);
         return matcher.find();
+    }
+    static boolean validationPassport(String passport) {
+        Pattern pattern = Pattern.compile("\\d{9}");
+        Matcher matcher = pattern.matcher(passport);
+        return matcher.find();
+    }
+    static void menu(String countries[]) {
+        Scanner scanner = new Scanner(System.in);
+        int option;
+        System.out.println("Welcome to the menu of Turkey Airlines ");
+        System.out.println("1.)Make a reservation");
+        System.out.println("2.)Exit");
+        option= Integer.parseInt(scanner.next());
+        switch(option) {
+        case 1:
+            userData(countries);
+            break;
+        case 2:
+            System.exit(0);
+            
+        }
     }
 }

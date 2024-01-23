@@ -1,6 +1,7 @@
 package proyecto3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -71,13 +72,13 @@ public class ValenciaHospitalSystem {
     
     public static ArrayList<Slot> addSlot(){
         ArrayList<Slot> slot = new ArrayList<Slot>();
-        slot.add(new Slot(TimeSlot.Morning, "8-9"));
-        slot.add(new Slot(TimeSlot.Morning, "9-10"));
-        slot.add(new Slot(TimeSlot.Morning, "10-11"));
-        slot.add(new Slot(TimeSlot.Morning, "11-12"));
-        slot.add(new Slot(TimeSlot.Afternoon, "1-2"));
-        slot.add(new Slot(TimeSlot.Afternoon, "2-3"));
-        slot.add(new Slot(TimeSlot.Afternoon, "3-4"));
+        slot.add(new Slot(TimeSlot.MORNING, "8-9"));
+        slot.add(new Slot(TimeSlot.MORNING, "9-10"));
+        slot.add(new Slot(TimeSlot.MORNING, "10-11"));
+        slot.add(new Slot(TimeSlot.MORNING, "11-12"));
+        slot.add(new Slot(TimeSlot.AFTERNOON, "1-2"));
+        slot.add(new Slot(TimeSlot.AFTERNOON, "2-3"));
+        slot.add(new Slot(TimeSlot.AFTERNOON, "3-4"));
         return slot;
     }
     
@@ -107,6 +108,7 @@ public class ValenciaHospitalSystem {
                     doctorsSelected.add(doctor);
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "2":
            
@@ -114,8 +116,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Emergency Care")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                   
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "3":
             
@@ -123,8 +127,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Clinical Analysis")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                   
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "4":
             
@@ -132,8 +138,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Cardiology")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                   
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "5":
             System.out.println("Write the  doctor for make your appointment: ");
@@ -141,8 +149,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Neurology")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                    
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "6":
             
@@ -150,16 +160,21 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Nutrition")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                    
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
+            break;
         case "7":
           
             for(Doctor doctor: doctors) {
                 if (doctor.getSpeciality().equalsIgnoreCase("Physiotherapy")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                    appointment(createDoctorsByProfession(),addSlot());
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "8":
            
@@ -167,8 +182,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Traumatology")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                    
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
         case "9":
             
@@ -176,8 +193,10 @@ public class ValenciaHospitalSystem {
                 if (doctor.getSpeciality().equalsIgnoreCase("Internal Medicine")) {
                     System.out.println(doctor.getName());
                     doctorsSelected.add(doctor);
+                   
                 }
             }
+            appointment(createDoctorsByProfession(),addSlot());
             break;
             
         }
@@ -189,12 +208,34 @@ public class ValenciaHospitalSystem {
         System.out.println("Write the  doctor  for make your appointment: ");
         Scanner scanner = new Scanner(System.in);
         String doctorName = scanner.next();
+        String shift= "";
+        String timeSlot;
         Doctor doctorSelected = null;
-        ArrayList<Appointment> appointment = new ArrayList<>();
+        
+        
+        ArrayList<Appointment> appointment = new ArrayList<>();        
         for(Doctor doctor: doctors) {
             if(doctor.getName().equalsIgnoreCase(doctorName)) {
                 doctorSelected = doctor;
             }
-        }        
+        }
+        for(Slot slot: slots) {
+           System.out.println(slot.toString());
+        }
+        System.out.println("Write the shift morning or afternoon");
+        shift = scanner.next();
+        System.out.println("Write the slot in the following format 8-9");
+        timeSlot = scanner.next();
+        TimeSlot timeSlotSelected = TimeSlot.valueOf(shift.toUpperCase());
+        Slot slotSelected = new Slot(timeSlotSelected, timeSlot);
+        appointment.add(new Appointment(doctorSelected, slotSelected));
+        
+        if(appointment != null) {
+            System.out.println("paso");
+        }else {
+            System.out.println("out");
+        }
     }
+   
+    
 }

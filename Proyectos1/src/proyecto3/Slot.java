@@ -17,5 +17,17 @@ public class Slot {
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
     }
+    public String getSlot() {
+        return slot;
+    }
+    public void setSlot(String slot) {
+        this.slot = slot;
+    }
+    @Override
+    public String toString() {
+        return "Slot [shift=" + timeSlot + ", slot=" + slot + "]";
+    }
+    
+    
     
 }
